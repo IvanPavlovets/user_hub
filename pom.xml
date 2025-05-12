@@ -11,7 +11,7 @@
     <name>user_hub</name>
 
     <modules>
-        <module>services/notification</module>
+        <module>services/subscription</module>
         <module>services/userapi</module>
     </modules>
 
