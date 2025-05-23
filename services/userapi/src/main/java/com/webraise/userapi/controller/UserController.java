@@ -24,22 +24,22 @@ public class UserController {
     private final UserService users;
 
     @PostMapping("/")
-    public ResponseEntity<User> create(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@RequestBody User user) {
         return getResponseEntity(this.users.save(user), HttpStatus.CREATED, HttpStatus.CONFLICT);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> findById(@PathVariable int id) {
+    public ResponseEntity<User> findById(@PathVariable Long id) {
         return getResponseEntity(this.users.findById(id), HttpStatus.OK, HttpStatus.NOT_FOUND);
     }
 
-    @PutMapping("/")
-    public ResponseEntity<User> update(@RequestBody User user) {
-        return getResponseEntity(this.users.save(user), HttpStatus.OK, HttpStatus.NOT_FOUND);
+    @PutMapping("/{id}")
+    public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User user) {
+        return getResponseEntity(this.users.update(id, user), HttpStatus.OK, HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<User> delete(@PathVariable int id) {
+    public ResponseEntity<User> delete(@PathVariable Long id) {
         return getResponseEntity(this.users.deleteById(id), HttpStatus.OK, HttpStatus.NOT_FOUND);
     }
 

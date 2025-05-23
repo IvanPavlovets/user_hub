@@ -2,8 +2,8 @@ package com.webraise.userapi.service;
 
 import com.webraise.userapi.model.User;
 import com.webraise.userapi.repository.UserRepository;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -12,11 +12,10 @@ import java.util.Optional;
  * Слой бизнес обработки модели User
  */
 @Service
-@AllArgsConstructor
 @RequiredArgsConstructor
+@Slf4j
 public class UserServiceImpl implements UserService {
-
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Override
     public Optional<User> save(User user) {
@@ -24,7 +23,7 @@ public class UserServiceImpl implements UserService {
         try {
             result = Optional.of(this.userRepository.save(user));
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Feedback save error: {}", e.getMessage());
         }
         return result;
     }
@@ -35,10 +34,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> update(User user) {
-        var findedUser = userRepository.findById(user.getId());
+    public Optional<User> update(Long id, User user) {
+        var findedUser = userRepository.findById(id);
         if (findedUser.isPresent()) {
-            userRepository.save(user);
+            User updatedUser = findedUser.get();
+            updatedUser.setName(user.getName());
+            updatedUser.setPassword(user.getPassword());
+            updatedUser.setEmail(user.getEmail());
+            return this.save(updatedUser);
         }
         return findedUser;
     }
