@@ -1,6 +1,7 @@
 package com.webraise.userapi.service;
 
 import com.webraise.userapi.model.User;
+import com.webraise.userapi.model.UserRecord;
 import com.webraise.userapi.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,13 +35,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> update(Long id, User user) {
+    public Optional<User> update(Long id, UserRecord userRecord) {
         var findedUser = userRepository.findById(id);
         if (findedUser.isPresent()) {
             User updatedUser = findedUser.get();
-            updatedUser.setName(user.getName());
-            updatedUser.setPassword(user.getPassword());
-            updatedUser.setEmail(user.getEmail());
+            updatedUser.setName(userRecord.name());
+            updatedUser.setPassword(userRecord.password());
+            updatedUser.setEmail(userRecord.email());
             return this.save(updatedUser);
         }
         return findedUser;

@@ -1,6 +1,7 @@
 package com.webraise.userapi.service;
 
 import com.webraise.userapi.model.User;
+import com.webraise.userapi.model.UserRecord;
 
 import java.util.Optional;
 
@@ -16,7 +17,7 @@ public interface UserService {
 
     Optional<User> findById(long id);
 
-    Optional<User> update(Long id, User user);
+    Optional<User> update(Long id, UserRecord user);
 
     Optional<User> deleteById(long userId);
 

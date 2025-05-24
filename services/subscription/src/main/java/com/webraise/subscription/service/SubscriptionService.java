@@ -1,6 +1,7 @@
 package com.webraise.subscription.service;
 
 import com.webraise.subscription.model.Subscription;
+import org.springframework.cloud.openfeign.FeignClient;
 
 import java.util.List;
 import java.util.Optional;

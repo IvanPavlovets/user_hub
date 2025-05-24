@@ -1,6 +1,7 @@
 package com.webraise.userapi.controller;
 
 import com.webraise.userapi.model.User;
+import com.webraise.userapi.model.UserRecord;
 import com.webraise.userapi.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -34,8 +35,8 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User user) {
-        return getResponseEntity(this.users.update(id, user), HttpStatus.OK, HttpStatus.NOT_FOUND);
+    public ResponseEntity<User> update(@PathVariable Long id, @RequestBody UserRecord userRecord) {
+        return getResponseEntity(this.users.update(id, userRecord), HttpStatus.OK, HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping("/{id}")
